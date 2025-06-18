@@ -1,0 +1,279 @@
+body {
+  width: 400px;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f6f8fa;
+}
+
+.container {
+  padding: 16px;
+}
+
+h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #24292f;
+  text-align: center;
+}
+
+h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #24292f;
+}
+
+.section {
+  background: white;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #24292f;
+  margin-bottom: 4px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  border-color: #0969da;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+}
+
+button {
+  background-color: #1f883d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #1a7f37;
+}
+
+button.danger {
+  background-color: #cf222e;
+}
+
+button.danger:hover {
+  background-color: #a40e26;
+}
+
+.rule-item {
+  background-color: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.rule-header {
+  font-weight: 600;
+  color: #24292f;
+  margin-bottom: 4px;
+}
+
+.rule-details {
+  font-size: 12px;
+  color: #656d76;
+  margin-bottom: 8px;
+}
+
+.rule-title {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+  background-color: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 3px;
+  padding: 4px 6px;
+  margin-bottom: 8px;
+}
+
+.rule-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort-buttons {
+  display: flex;
+  gap: 4px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.move-up, .move-down {
+  background-color: #656d76;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.move-up:hover:not(:disabled), .move-down:hover:not(:disabled) {
+  background-color: #4c545c;
+}
+
+.move-up:disabled, .move-down:disabled {
+  background-color: #d0d7de;
+  color: #656d76;
+  cursor: not-allowed;
+}
+
+.edit-rule {
+  background-color: #6f42c1;
+  font-size: 12px;
+  padding: 4px 8px;
+  width: auto;
+}
+
+.edit-rule:hover {
+  background-color: #5a32a3;
+}
+
+.copy-rule {
+  background-color: #0969da;
+  font-size: 12px;
+  padding: 4px 8px;
+  width: auto;
+}
+
+.copy-rule:hover {
+  background-color: #0860ca;
+}
+
+.delete-rule {
+  background-color: #cf222e;
+  font-size: 12px;
+  padding: 4px 8px;
+  width: auto;
+}
+
+.delete-rule:hover {
+  background-color: #a40e26;
+}
+
+.no-rules {
+  text-align: center;
+  color: #656d76;
+  font-style: italic;
+  padding: 20px;
+}
+
+.cancel-button {
+  background-color: #656d76;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cancel-button:hover {
+  background-color: #4c545c;
+}
+
+.wildcard-help {
+  background-color: #dbeafe;
+  border: 1px solid #93c5fd;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #1e40af;
+}
+
+.wildcard-help code {
+  background-color: #1e40af;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 11px;
+}
+
+.placeholder-help {
+  background-color: #ecfdf5;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #166534;
+}
+
+.placeholder-help code {
+  background-color: #166534;
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 11px;
+}
+
+.placeholder-help em {
+  color: #15803d;
+  font-style: italic;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #24292f;
+  margin-bottom: 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  margin-top: 2px;
+}
+
+.checkbox-text {
+  flex: 1;
+  line-height: 1.4;
+} 

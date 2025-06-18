@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub PR Title Auto-filler",
+  "version": "1.0",
+  "description": "Automatically fills GitHub pull request titles based on configurable patterns",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://github.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Configure PR Title Patterns"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/compare/*", "https://github.com/*/pull/new/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+} 
