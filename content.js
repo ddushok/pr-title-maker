@@ -229,7 +229,7 @@
   // Function to observe DOM changes and retry if elements aren't ready
   function waitForElements() {
     let attempts = 0;
-    const maxAttempts = 10;
+    const maxAttempts = 20; // Increased from 10
     
     function tryApplyRule() {
       attempts++;
@@ -238,30 +238,103 @@
       if (titleInput) {
         applyMatchingRule();
       } else if (attempts < maxAttempts) {
-        setTimeout(tryApplyRule, 500);
+        setTimeout(tryApplyRule, 300); // Reduced from 500ms
       }
     }
     
     tryApplyRule();
   }
 
-  // Initialize when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', waitForElements);
-  } else {
-    waitForElements();
+  // Enhanced navigation detection
+  let lastUrl = location.href;
+  let pageLoadTimeout;
+
+  function handleNavigation() {
+    console.log('PR Title Auto-filler: Navigation detected to', location.href);
+    
+    // Clear any existing timeout
+    if (pageLoadTimeout) {
+      clearTimeout(pageLoadTimeout);
+    }
+    
+    // Set new timeout to wait for page content to load
+    pageLoadTimeout = setTimeout(() => {
+      if (isPRCreationPage()) {
+        console.log('PR Title Auto-filler: PR creation page detected, applying rules');
+        waitForElements();
+      }
+    }, 500); // Initial delay for page to start loading
   }
 
-  // Also listen for navigation changes (GitHub uses AJAX navigation)
-  let lastUrl = location.href;
-  new MutationObserver(function() {
-    const url = location.href;
-    if (url !== lastUrl) {
-      lastUrl = url;
-      if (isPRCreationPage()) {
-        setTimeout(waitForElements, 1000); // Give GitHub time to load the page
+  // Multiple navigation detection methods
+  
+  // 1. Listen for History API changes (pushState/popState)
+  const originalPushState = history.pushState;
+  const originalReplaceState = history.replaceState;
+  
+  history.pushState = function() {
+    originalPushState.apply(history, arguments);
+    setTimeout(handleNavigation, 0);
+  };
+  
+  history.replaceState = function() {
+    originalReplaceState.apply(history, arguments);
+    setTimeout(handleNavigation, 0);
+  };
+  
+  window.addEventListener('popstate', handleNavigation);
+
+  // 2. Listen for GitHub's specific navigation events
+  document.addEventListener('pjax:success', handleNavigation);
+  document.addEventListener('turbo:load', handleNavigation);
+  document.addEventListener('turbo:render', handleNavigation);
+
+  // 3. MutationObserver for URL changes and content updates
+  const observer = new MutationObserver(function(mutations) {
+    const currentUrl = location.href;
+    if (currentUrl !== lastUrl) {
+      lastUrl = currentUrl;
+      handleNavigation();
+      return;
+    }
+    
+    // Also check if PR form elements are added to the page
+    for (const mutation of mutations) {
+      if (mutation.type === 'childList') {
+        for (const node of mutation.addedNodes) {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            // Check if a PR title input was added
+            if (node.querySelector && node.querySelector('input[name="pull_request[title]"]')) {
+              console.log('PR Title Auto-filler: PR form detected in DOM mutation');
+              setTimeout(waitForElements, 100);
+              return;
+            }
+          }
+        }
       }
     }
-  }).observe(document, { subtree: true, childList: true });
+  });
+  
+  observer.observe(document, { 
+    subtree: true, 
+    childList: true,
+    attributes: true,
+    attributeFilter: ['href', 'src'] 
+  });
+
+  // 4. Periodically check if we're on a PR page (fallback)
+  setInterval(() => {
+    if (isPRCreationPage() && getTitleInput() && !getTitleInput().value.trim()) {
+      // Only apply if title is empty to avoid overwriting user input
+      waitForElements();
+    }
+  }, 2000);
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', handleNavigation);
+  } else {
+    handleNavigation();
+  }
 
 })(); 

@@ -2,9 +2,9 @@
 
 A Chrome extension that automatically fills in GitHub pull request titles based on configurable patterns matching repository, source branch, and target branch.
 
-![extSS1.png](screenshots/extSS1.png)
-![extSS2.png](screenshots/extSS2.png)
-![githubPR.png](screenshots/githubPR.png)
+<img src="screenshots/extSS1.png" alt="Extension Screenshot 1" width="400">
+<img src="screenshots/extSS2.png" alt="Extension Screenshot 2" width="400">
+<img src="screenshots/githubPR.png" alt="GitHub PR Screenshot" width="400">
 
 ## Features
 
