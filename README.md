@@ -2,6 +2,10 @@
 
 A Chrome extension that automatically fills in GitHub pull request titles based on configurable patterns matching repository, source branch, and target branch.
 
+![extSS1.png](screenshots/extSS1.png)
+![extSS2.png](screenshots/extSS2.png)
+![githubPR.png](screenshots/githubPR.png)
+
 ## Features
 
 - ✅ **Pattern Matching**: Configure rules based on repository, from branch, and to branch
